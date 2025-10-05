@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Software Downloads</title>
-  <link rel="icon" href="https://sdmntprpolandcentral.oaiusercontent.com/files/00000000-810c-620a-b050-63ce7342e2fa/raw">
   <style>
+    /* Base styling */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -16,232 +16,173 @@
       margin-left: auto;
       margin-right: auto;
     }
-    h1, h2, h3 { color: #0070f3; text-align: center; }
-    /* Button styles */
-    .btn, .login-btn, .download-btn {
-      display: block;          /* Make it block so margin auto works */
-      padding: 10px 18px; 
-      color: white; 
-      text-decoration: none; 
-      background: #0070f3; 
-      width: fit-content;      /* Only as wide as the text */
-      margin: 10px auto 0;     /* Center horizontally with top margin */
-      border-radius: 6px;      /* Optional: match other buttons */
-      text-align: center; 
+
+    h1 {
+      text-align: center;
+      color: #222;
+      margin-bottom: 20px;
     }
-    .login-btn, .btn-primary { background: #0070f3; color: white; }
-    .login-btn:hover, .btn-primary:hover { background: #0056c7; }
-    .btn-danger { background: #dc3545; color: white; }
-    .btn-danger:hover { background: #c82333; }
-    .btn-secondary { background: #6c757d; color: white; }
-    .btn-secondary:hover { background: #545b62; }
-    .btn-success { background: #28a745; color: white; }
-    .btn-success:hover { background: #218838; }
-    .download-btn { display: inline-block; padding: 10px 18px; color: white; text-decoration: none; background: #0070f3; }
-    .download-btn:hover { background: #0056c7; }
 
-    /* Main content */
-    .main-content { display: block; }
-    .main-content.hidden { display: none; }
+    /* Search bar */
+    .search-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-    /* Dashboard */
-    .dashboard { display: none; max-height: 80vh; overflow-y: auto; }
-    .add-form { background:#fff; padding:20px; border-radius:10px; margin-bottom:20px; }
-    .add-form input { display:block; width:100%; margin:10px 0; padding:8px; border-radius:4px; border:1px solid #ccc; }
-    .software-list .software-item { background:#fff; padding:10px; margin-bottom:10px; border-radius:6px; border:1px solid #ddd; }
+    .search-container input {
+      width: 80%;
+      max-width: 400px;
+      padding: 10px 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
 
-    /* Software grid */
-    .wrap { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:20px; padding:10px; }
-    .software { background:#fff; padding:20px; border-radius:10px; border:1px solid #ddd; text-align:center; transition: transform 0.2s, box-shadow 0.2s; }
-    .software:hover { transform:translateY(-5px); box-shadow:0 4px 10px rgba(0,0,0,0.1); }
-    .software img { width:64px; height:64px; object-fit:contain; margin-bottom:10px; }
-    .checksum { font-size:0.9em; color:#555; margin-top:8px; word-break:break-all; }
+    .search-container input:focus {
+      border-color: #0070f3;
+    }
 
-    /* Search */
-    .search-container { text-align:center; margin-bottom:30px; }
-    .search-container input { width:80%; max-width:400px; padding:10px 15px; border-radius:8px; border:1px solid #ccc; outline:none; }
-    .search-container input:focus { border-color:#0070f3; }
+    /* Responsive grid layout */
+    .wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 10px;
+    }
 
-    /* Modal */
-    .modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); }
-    .modal-content { background:#fff; margin:15% auto; padding:20px; border-radius:10px; width:80%; max-width:400px; text-align:center; }
-    .close { color:#aaa; float:right; font-size:28px; font-weight:bold; cursor:pointer; }
-    .close:hover { color:#000; }
+    /* Software card */
+    .software {
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
 
-    footer { text-align:center; color:#777; margin-top:40px; font-size:0.9em; }
-    .hidden { display:none; }
+    .software:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .software img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .software h2 {
+      margin: 0 0 10px 0;
+      font-size: 1.1em;
+      color: #0070f3;
+    }
+
+    /* Download button */
+    .download-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 18px;
+      background: #0070f3;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.2s ease;
+    }
+
+    .download-btn:hover {
+      background: #0056c7;
+    }
+
+    /* Checksum text */
+    .checksum {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 8px;
+      word-break: break-all;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      color: #777;
+      margin-top: 40px;
+      font-size: 0.9em;
+    }
+
+    /* Hide when filtered out */
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <!-- Main Content -->
-  <div id="mainContent" class="main-content">
-    <h1>Download Center</h1>
-    <button class="login-btn" onclick="showLoginModal()">Admin Login</button>
-    <div class="search-container">
-      <input type="text" id="searchBox" placeholder="Search software...">
-    </div>
-    <div class="wrap" id="softwareList"></div>
-    <footer>© 2025 My Software Downloads</footer>
+  <h1>Download Center</h1>
+
+  <!-- Search bar -->
+  <div class="search-container">
+    <input type="text" id="searchBox" placeholder="Search software...">
   </div>
 
-  <!-- Dashboard -->
-  <div id="dashboard" class="dashboard">
-    <h2>Admin Dashboard</h2>
-    <button class="btn btn-secondary" onclick="logout()">Logout</button>
+  <div class="wrap" id="softwareList">
 
-    <div class="add-form">
-      <h3>Add New Software</h3>
-      <input type="text" id="newTitle" placeholder="Software Title">
-      <input type="url" id="newImage" placeholder="Image URL">
-      <input type="url" id="newDownload" placeholder="Download URL">
-      <input type="text" id="newChecksum" placeholder="Checksum/Note">
-      <button class="btn btn-primary" onclick="addSoftware()">Add Software</button>
+    <div class="software">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+      <h2>Telegram Desktop</h2>
+      <a class="download-btn" href="https://github.com/botcha354-bot/tgdl/releases/download/v1.2.0.kak/tsetup-x64.6.1.3.exe">Download</a>
+      <p class="checksum">SHA256: <code>9FA7306D5E91969C2CACA30B675C7DC6AFF46AA626EE90F4E556652389D9FFD9</code></p>
     </div>
 
-    <div class="software-list" id="manageList"></div>
+    <div class="software">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Khmer_OS_logo.png" alt="Khmer Unicode">
+      <h2>Khmer Unicode</h2>
+      <a class="download-btn" href="https://github.com/botcha354-bot/tgdl/releases/download/app2-v1.0.0/KhmerUnicode2-0-1.exe">Download</a>
+      <p class="checksum">SHA256: <code>PUT_HASH_HERE</code></p>
+    </div>
+
+    <div class="software">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/WPS_Office_logo_%282019%29.svg" alt="WPS Office">
+      <h2>WPS Office</h2>
+      <a class="download-btn" href="https://github.com/botcha354-bot/tgdl/releases/download/v2.0/wps_wid.cid-739407010.1758723826.exe">Download</a>
+      <p class="checksum">SHA256: <code>9FA7306D5E91969C2CACA30B675C7DC6AFF46AA626EE90F4E556652389D9FFD9</code></p>
+    </div>
+
+    <div class="software">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Sogou_Pinyin_logo.png" alt="Sogou Pinyin">
+      <h2>Sogou Pinyin</h2>
+      <a class="download-btn" href="https://github.com/botcha354-bot/tgdl/releases/download/v8.0/sogou_pinyin_guanwang_15.9b.exe">Download</a>
+      <p class="checksum">SHA256: <code>9FA7306D5E91969C2CACA30B675C7DC6AFF46AA626EE90F4E556652389D9FFD9</code></p>
+    </div>
+
+    <div class="software">
+      <img src="https://www.snipaste.com/assets/img/logo.png" alt="Snipaste">
+      <h2>Snipaste</h2>
+      <a class="download-btn" href="https://github.com/botcha354-bot/tgdl/releases/download/v1.0/Snipaste.Installer.exe">Download</a>
+      <p class="checksum">SHA256: <code>9FA7306D5E91969C2CACA30B675C7DC6AFF46AA626EE90F4E556652389D9FFD9</code></p>
+    </div>
+
   </div>
 
-  <!-- Login Modal -->
-  <div id="loginModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeLoginModal()">&times;</span>
-      <h3>Admin Login</h3>
-      <input type="password" id="passwordInput" placeholder="Enter Password">
-      <button class="btn btn-primary" onclick="login()">Login</button>
-    </div>
-  </div>
-
-  <!-- Confirm Modal -->
-  <div id="confirmModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeConfirmModal()">&times;</span>
-      <h3 id="confirmTitle">Confirm Action</h3>
-      <p id="confirmMessage"></p>
-      <button class="btn btn-danger" id="confirmBtn" onclick="performAction()">Confirm</button>
-      <button class="btn btn-secondary" onclick="closeConfirmModal()">Cancel</button>
-    </div>
-  </div>
-
-  <!-- Edit Modal -->
-  <div id="editModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeEditModal()">&times;</span>
-      <h3>Edit Software</h3>
-      <input type="text" id="editTitle" placeholder="Software Title">
-      <input type="url" id="editImage" placeholder="Image URL">
-      <input type="url" id="editDownload" placeholder="Download URL">
-      <input type="text" id="editChecksum" placeholder="Checksum/Note">
-      <button class="btn btn-success" onclick="saveEdit()">Save</button>
-      <button class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
-    </div>
-  </div>
+  <footer>
+    © 2025 My Software Downloads
+  </footer>
 
   <script>
-    const PASSWORD = '662004';
-    let editingId = null;
-    let pendingAction = null;
+    // Simple search filter
+    const searchBox = document.getElementById('searchBox');
+    const softwareList = document.getElementById('softwareList');
+    const softwares = softwareList.getElementsByClassName('software');
 
-    // Load from localStorage or default
-    let softwares = JSON.parse(localStorage.getItem('softwares')) || [
-      {id:1, title:'Telegram Desktop', image:'https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg', download:'https://github.com/botcha354-bot/tgdl/releases/download/v1.2.0.kak/tsetup-x64.6.1.3.exe', checksum:'Fast download'},
-      {id:2, title:'Khmer Unicode', image:'ku.png', download:'https://github.com/botcha354-bot/tgdl/releases/download/app2-v1.0.0/KhmerUnicode2-0-1.exe', checksum:'Fast download'},
-      {id:3, title:'WPS Office', image:'', download:'https://github.com/botcha354-bot/tgdl/releases/download/v2.0/wps_wid.cid-739407010.1758723826.exe', checksum:'Fast download'}
-    ];
-
-    function saveToStorage(){ localStorage.setItem('softwares', JSON.stringify(softwares)); }
-
-    document.addEventListener('DOMContentLoaded', ()=>{
-      renderSoftwareList();
-      renderManageList();
-      attachSearch();
-    });
-
-    // LOGIN
-    function showLoginModal(){ document.getElementById('loginModal').style.display='block'; }
-    function closeLoginModal(){ document.getElementById('loginModal').style.display='none'; document.getElementById('passwordInput').value=''; }
-    function login(){
-      if(document.getElementById('passwordInput').value===PASSWORD){
-        document.getElementById('mainContent').classList.add('hidden');
-        document.getElementById('dashboard').style.display='block';
-        closeLoginModal();
-      } else alert('Incorrect password!');
-    }
-    function logout(){ document.getElementById('dashboard').style.display='none'; document.getElementById('mainContent').classList.remove('hidden'); editingId=null; }
-
-    // CONFIRM MODAL
-    function showConfirmModal(title,msg,action,id=null){ document.getElementById('confirmTitle').textContent=title; document.getElementById('confirmMessage').textContent=msg; pendingAction={action,id}; document.getElementById('confirmModal').style.display='block'; }
-    function closeConfirmModal(){ document.getElementById('confirmModal').style.display='none'; pendingAction=null; }
-    function performAction(){ if(pendingAction){ if(pendingAction.action==='delete') deleteSoftware(pendingAction.id); closeConfirmModal(); } }
-
-    // EDIT MODAL
-    function showEditModal(id){
-      const item=softwares.find(s=>s.id===id);
-      if(item){ editingId=id; document.getElementById('editTitle').value=item.title; document.getElementById('editImage').value=item.image; document.getElementById('editDownload').value=item.download; document.getElementById('editChecksum').value=item.checksum; document.getElementById('editModal').style.display='block'; }
-    }
-    function closeEditModal(){ document.getElementById('editModal').style.display='none'; editingId=null; }
-    function saveEdit(){
-      if(editingId){
-        const index=softwares.findIndex(s=>s.id===editingId);
-        if(index!==-1){
-          softwares[index]={...softwares[index], title:document.getElementById('editTitle').value, image:document.getElementById('editImage').value, download:document.getElementById('editDownload').value, checksum:document.getElementById('editChecksum').value};
-          saveToStorage();
-          renderSoftwareList();
-          renderManageList();
-          closeEditModal();
-        }
+    searchBox.addEventListener('input', () => {
+      const searchTerm = searchBox.value.toLowerCase();
+      for (let item of softwares) {
+        const title = item.querySelector('h2').textContent.toLowerCase();
+        item.classList.toggle('hidden', !title.includes(searchTerm));
       }
-    }
-
-    // CRUD
-    function addSoftware(){
-      const t=document.getElementById('newTitle').value.trim();
-      const i=document.getElementById('newImage').value.trim();
-      const d=document.getElementById('newDownload').value.trim();
-      const c=document.getElementById('newChecksum').value.trim()||'Fast download';
-      if(t && d){
-        softwares.push({id:Date.now(), title:t, image:i, download:d, checksum:c});
-        saveToStorage();
-        renderSoftwareList();
-        renderManageList();
-        document.getElementById('newTitle').value=''; document.getElementById('newImage').value=''; document.getElementById('newDownload').value=''; document.getElementById('newChecksum').value='';
-      } else alert('Title and Download URL required!');
-    }
-
-    function deleteSoftware(id){ softwares=softwares.filter(s=>s.id!==id); saveToStorage(); renderSoftwareList(); renderManageList(); document.getElementById('dashboard').scrollTop=0; }
-
-    // RENDER
-    function renderSoftwareList(){
-      const container=document.getElementById('softwareList'); container.innerHTML='';
-      const search=document.getElementById('searchBox').value.toLowerCase();
-      softwares.filter(s=>s.title.toLowerCase().includes(search)).forEach(item=>{
-        const div=document.createElement('div'); div.className='software';
-        div.innerHTML=`<img src="${item.image}" alt="${item.title}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIzMiIgZmlsbD0iI0Y3RjdGNyIv48L3N2Zz4='"><h2>${item.title}</h2><a class="download-btn" href="${item.download}" target="_blank">Download</a><p class="checksum">${item.checksum}</p>`;
-        container.appendChild(div);
-      });
-    }
-
-    function renderManageList(){
-      const container=document.getElementById('manageList'); container.innerHTML='';
-      softwares.forEach(item=>{
-        const div=document.createElement('div'); div.className='software-item';
-        div.innerHTML=`<h3>${item.title}</h3>
-        <button class="btn btn-success" onclick="showEditModal(${item.id})">Edit</button>
-        <button class="btn btn-danger" onclick="showConfirmModal('Delete','Delete ${item.title}?','delete',${item.id})">Delete</button>`;
-        container.appendChild(div);
-      });
-    }
-
-    function attachSearch(){
-      document.getElementById('searchBox').addEventListener('input',renderSoftwareList);
-    }
-
-    // Close modals on outside click
-    window.onclick=function(event){
-      ['loginModal','editModal','confirmModal'].forEach(id=>{
-        const modal=document.getElementById(id);
-        if(event.target==modal) modal.style.display='none';
-      });
-    }
+    });
   </script>
 </body>
 </html>
