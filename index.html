@@ -1,419 +1,568 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Software Downloads</title>
-<link rel="icon" href="icon.png" type="image/png">
-<style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-  background: #f8f9fa;
-  color: #333;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-}
+  <link rel="icon" href="icon.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Software Downloads</title>
+  <style>
+    /* Your original styles here (unchanged) */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f8f9fa;
+      color: #333;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-h1 { text-align:center; color:#222; margin-bottom:20px; }
+    h1 {
+      text-align: center;
+      color: #222;
+      margin-bottom: 20px;
+    }
 
-.search-container { text-align:center; margin-bottom:30px; }
-.search-container input {
-  width: 80%;
-  max-width: 400px;
-  padding: 10px 15px;
-  font-size: 16px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  outline:none;
-  transition:border-color 0.2s;
-}
-.search-container input:focus { border-color:#0070f3; }
+    /* Search bar */
+    .search-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-.wrap {
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
-  gap:20px;
-  padding:10px;
-}
+    .search-container input {
+      width: 80%;
+      max-width: 400px;
+      padding: 10px 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
 
-.software {
-  background:#fff;
-  padding:20px;
-  border:1px solid #ddd;
-  border-radius:10px;
-  box-shadow:0 2px 5px rgba(0,0,0,0.05);
-  text-align:center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.software:hover { transform:translateY(-5px); box-shadow:0 4px 10px rgba(0,0,0,0.1); }
+    .search-container input:focus {
+      border-color: #0070f3;
+    }
 
-.software img { width:64px; height:64px; object-fit:contain; margin-bottom:10px; }
-.software h2 { margin:0 0 10px 0; font-size:1.1em; color:#0070f3; }
+    /* Responsive grid layout */
+    .wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 10px;
+    }
 
-.download-btn {
-  display:inline-block;
-  margin-top:10px;
-  padding:10px 18px;
-  background:#0070f3;
-  color:white;
-  text-decoration:none;
-  border-radius:6px;
-  transition: background 0.2s ease;
-}
-.download-btn:hover { background:#0056c7; }
+    /* Software card */
+    .software {
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
 
-.checksum { font-size:0.9em; color:#555; margin-top:8px; word-break:break-all; }
+    .software:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
 
-footer { text-align:center; color:#777; margin-top:40px; font-size:0.9em; }
+    .software img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
 
-.hidden { display:none; }
+    .software h2 {
+      margin: 0 0 10px 0;
+      font-size: 1.1em;
+      color: #0070f3;
+    }
 
-/* Admin buttons and modals */
-.admin-section { text-align:center; margin-bottom:20px; }
-.admin-btn, .login-btn, .btn { 
-  padding:10px 20px; background:#0070f3; color:white; border:none; border-radius:6px; cursor:pointer;
-  font-size:16px;
-}
-.admin-btn:hover, .login-btn:hover, .btn:hover { background:#0056c7; }
+    /* Download button */
+    .download-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 18px;
+      background: #0070f3;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.2s ease;
+    }
 
-.modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color: rgba(0,0,0,0.5); }
-.modal-content { background-color:#fff; margin:15% auto; padding:20px; border-radius:10px; width:80%; max-width:400px; text-align:center; position:relative; }
-.close { color:#aaa; float:right; font-size:28px; font-weight:bold; cursor:pointer; }
-.close:hover { color:#000; }
+    .download-btn:hover {
+      background: #0056c7;
+    }
 
-input[type="password"], input[type="email"], input[type="text"], input[type="url"] {
-  width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:4px;
-}
+    /* Checksum text */
+    .checksum {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 8px;
+      word-break: break-all;
+    }
 
-#dashboard { display:none; margin-top:30px; padding:20px; background:#fff; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.05);}
-#dashboard h2 { text-align:center; }
-.form-group { margin-bottom:15px; }
-.form-group label { display:block; margin-bottom:5px; }
+    /* Footer */
+    footer {
+      text-align: center;
+      color: #777;
+      margin-top: 40px;
+      font-size: 0.9em;
+    }
 
-.software-list-admin { margin-top:20px; }
-.software-admin-item { border:1px solid #ddd; padding:10px; margin-bottom:10px; border-radius:5px; text-align:center; }
-.software-admin-item img { margin-bottom:5px; }
+    /* Hide when filtered out */
+    .hidden {
+      display: none;
+    }
 
-#editModal .modal-content { width:90%; max-width:500px; max-height:80vh; overflow-y:auto; }
-#editForm input { margin-bottom:10px; }
+    /* New: Admin Button and Modal */
+    .admin-section {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-/* Drag and Drop */
-.upload-area {
-  border: 2px dashed #0070f3;
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
-  margin-bottom:10px;
-  cursor: pointer;
-  color: #555;
-}
-.upload-area.dragover { background: #f0f8ff; }
-.delete-upload { background:#dc3545; margin-top:5px; display:inline-block; padding:5px 10px; border-radius:4px; color:white; cursor:pointer; }
-</style>
+    .admin-btn {
+      padding: 10px 20px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .admin-btn:hover {
+      background: #218838;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #000;
+    }
+
+    input[type="password"], input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .login-btn {
+      padding: 10px 20px;
+      background: #0070f3;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Dashboard Styles */
+    #dashboard {
+      display: none;
+      margin-top: 30px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    #dashboard h2 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .btn {
+      padding: 10px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn-primary { background: #0070f3; color: white; }
+    .btn-danger { background: #dc3545; color: white; }
+    .btn-success { background: #28a745; color: white; }
+
+    .software-list-admin {
+      margin-top: 20px;
+    }
+
+    .software-admin-item {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    /* Edit Modal */
+    #editModal {
+      display: none;
+      position: fixed;
+      z-index: 1001;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    #editModal .modal-content {
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    #editForm input {
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
+  <h1>Download Center</h1>
 
-<h1>Download Center</h1>
-
-<div class="admin-section">
-  <button class="admin-btn" onclick="openLoginModal()">Admin Login</button>
-</div>
-
-<!-- Login Modal -->
-<div id="loginModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeLoginModal()">&times;</span>
-    <h3>Admin Login</h3>
-    <form onsubmit="login(event)">
-      <input type="email" id="email" placeholder="Email (e.g., admin@example.com)" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <button type="submit" class="login-btn">Login</button>
-    </form>
-    <p id="loginError" style="color:red; display:none;">Invalid credentials!</p>
+  <!-- Admin Login Button -->
+  <div class="admin-section">
+    <button class="admin-btn" onclick="openLoginModal()">Admin Login</button>
   </div>
-</div>
 
-<!-- Edit Modal -->
-<div id="editModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeEditModal()">&times;</span>
-    <h3>Edit Software</h3>
-    <form id="editForm" onsubmit="updateSoftware(event)">
-      <input type="hidden" id="editId">
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLoginModal()">&times;</span>
+      <h3>Admin Login</h3>
+      <form onsubmit="login(event)">
+        <div class="form-group">
+          <input type="email" id="email" placeholder="Email (e.g., admin@example.com)" required>
+        </div>
+        <div class="form-group">
+          <input type="password" id="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="login-btn">Login</button>
+      </form>
+      <p id="loginError" style="color: red; display: none;">Invalid credentials!</p>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeEditModal()">&times;</span>
+      <h3>Edit Software</h3>
+      <form id="editForm" onsubmit="updateSoftware(event)">
+        <input type="hidden" id="editId">
+        <div class="form-group">
+          <label>Title:</label>
+          <input type="text" id="editTitle" required>
+        </div>
+        <div class="form-group">
+          <label>Image URL:</label>
+          <input type="url" id="editImageUrl" required>
+        </div>
+        <div class="form-group">
+          <label>Download URL:</label>
+          <input type="url" id="editDownloadUrl" required>
+        </div>
+        <div class="form-group">
+          <label>Checksum/Description:</label>
+          <input type="text" id="editChecksum" required>
+        </div>
+        <button type="submit" class="btn btn-success">Update</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dashboard (Hidden until login) -->
+  <div id="dashboard">
+    <h2>Admin Dashboard</h2>
+    <button class="btn btn-danger" onclick="logout()">Logout</button>
+    
+    <!-- Add New Software Form -->
+    <h3>Add New Software</h3>
+    <form id="addForm" onsubmit="addSoftware(event)">
       <div class="form-group">
         <label>Title:</label>
-        <input type="text" id="editTitle" required>
+        <input type="text" id="title" required>
       </div>
       <div class="form-group">
-        <label>Upload File:</label>
-        <div class="upload-area" id="editUploadArea">Drag & drop or click to upload</div>
-        <input type="file" id="editFileInput" style="display:none;">
-        <div id="editUploadedFile"></div>
+        <label>Image URL:</label>
+        <input type="url" id="imageUrl" required>
       </div>
-      <button type="submit" class="btn">Update</button>
+      <div class="form-group">
+        <label>Download URL:</label>
+        <input type="url" id="downloadUrl" required>
+      </div>
+      <div class="form-group">
+        <label>Checksum/Description:</label>
+        <input type="text" id="checksum" required>
+      </div>
+      <button type="submit" class="btn btn-success">Add</button>
     </form>
-  </div>
-</div>
 
-<!-- Dashboard -->
-<div id="dashboard">
-  <h2>Admin Dashboard</h2>
-  <button class="btn" onclick="logout()">Logout</button>
-
-  <h3>Add New Software</h3>
-  <form id="addForm" onsubmit="addSoftware(event)">
-    <div class="form-group">
-      <label>Title:</label>
-      <input type="text" id="title" required>
+    <!-- Admin Software List (for Edit/Delete) -->
+    <div class="software-list-admin">
+      <h3>Manage Software</h3>
+      <div id="adminSoftwareList"></div>
     </div>
-    <div class="form-group">
-      <label>Upload File:</label>
-      <div class="upload-area" id="uploadArea">Drag & drop or click to upload</div>
-      <input type="file" id="fileInput" style="display:none;">
-      <div id="uploadedFile"></div>
-    </div>
-    <button type="submit" class="btn">Add</button>
-  </form>
-
-  <div class="software-list-admin">
-    <h3>Manage Software</h3>
-    <div id="adminSoftwareList"></div>
   </div>
-</div>
 
-<!-- Public View -->
-<div class="search-container">
-  <input type="text" id="searchBox" placeholder="Search software...">
-</div>
-<div class="wrap" id="softwareList"></div>
+  <!-- Your Original Search and List -->
+  <div class="search-container">
+    <input type="text" id="searchBox" placeholder="Search software...">
+  </div>
 
-<footer>© 2025 My Software Downloads</footer>
+  <div class="wrap" id="softwareList">
+    <!-- Software cards will be populated by JS from Firestore -->
+  </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
-import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-storage.js";
+  <footer>
+    © 2025 My Software Downloads
+  </footer>
 
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyD3Rd_IT34AN7LQKKrkuyonE3nEmXGGt5E",
-  authDomain: "download-center-4f997.firebaseapp.com",
-  projectId: "download-center-4f997",
-  storageBucket: "download-center-4f997.appspot.com",
-  messagingSenderId: "120966837626",
-  appId: "1:120966837626:web:d3489bc4e3e245651f52c3"
-};
+  <!-- Firebase SDK -->
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+    import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const storage = getStorage(app);
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+    apiKey: "AIzaSyD3Rd_IT34AN7LQKKrkuyonE3nEmXGGt5E",
+    authDomain: "download-center-4f997.firebaseapp.com",
+    projectId: "download-center-4f997",
+    storageBucket: "download-center-4f997.firebasestorage.app",
+    messagingSenderId: "120966837626",
+    appId: "1:120966837626:web:d3489bc4e3e245651f52c3",
+    measurementId: "G-4S4BRL4FW2"
+    };
 
-// State for uploads
-let addFile = null;
-let editFile = null;
 
-// Auto-icon map (minimal black/white)
-const fileIcons = {
-  'zip': 'https://firebasestorage.googleapis.com/v0/b/download-center-4f997.appspot.com/o/icons%2Fzip.png?alt=media',
-  'exe': 'https://firebasestorage.googleapis.com/v0/b/download-center-4f997.appspot.com/o/icons%2Fexe.png?alt=media',
-  'apk': 'https://firebasestorage.googleapis.com/v0/b/download-center-4f997.appspot.com/o/icons%2Fapk.png?alt=media',
-  'rar': 'https://firebasestorage.googleapis.com/v0/b/download-center-4f997.appspot.com/o/icons%2Frar.png?alt=media',
-  'msi': 'https://firebasestorage.googleapis.com/v0/b/download-center-4f997.appspot.com/o/icons%2Fmsi.png?alt=media',
-  'pdf': 'https://firebasestorage.googleapis.com/v0/b/download-center-4f997.appspot.com/o/icons%2Fpdf.png?alt=media',
-  'default': 'https://firebasestorage.googleapis.com/v0/b/download-center-4f997.appspot.com/o/icons%2Ffile.png?alt=media'
-};
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-function getFileIcon(filename){
-  const ext = filename.split('.').pop().toLowerCase();
-  return fileIcons[ext] || fileIcons['default'];
-}
-
-// Auth State Listener
-onAuthStateChanged(auth, (user)=>{
-  document.getElementById('dashboard').style.display = user? 'block':'none';
-  loadSoftware();
-  if(user) loadAdminList();
-});
-
-// Login
-window.login = async (e)=>{
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  try{ await signInWithEmailAndPassword(auth,email,password); closeLoginModal(); document.getElementById('loginError').style.display='none';}
-  catch{ document.getElementById('loginError').style.display='block'; }
-};
-
-window.logout = ()=> signOut(auth);
-window.openLoginModal = ()=> document.getElementById('loginModal').style.display='block';
-window.closeLoginModal = ()=> document.getElementById('loginModal').style.display='none';
-window.openEditModal = (id,data)=>{
-  document.getElementById('editId').value=id;
-  document.getElementById('editTitle').value=data.title;
-  editFile=null;
-  document.getElementById('editUploadedFile').innerHTML='';
-  document.getElementById('editModal').style.display='block';
-};
-window.closeEditModal = ()=> document.getElementById('editModal').style.display='none';
-
-// Upload Helpers
-function setupUpload(areaId,inputId,uploadedDiv,callback){
-  const area=document.getElementById(areaId);
-  const input=document.getElementById(inputId);
-  const uploaded=document.getElementById(uploadedDiv);
-  area.addEventListener('click',()=>input.click());
-  area.addEventListener('dragover',(e)=>{e.preventDefault();area.classList.add('dragover');});
-  area.addEventListener('dragleave',(e)=>{area.classList.remove('dragover');});
-  area.addEventListener('drop',(e)=>{
-    e.preventDefault(); area.classList.remove('dragover');
-    if(e.dataTransfer.files.length>0) input.files=e.dataTransfer.files;
-    input.dispatchEvent(new Event('change'));
-  });
-  input.addEventListener('change',()=>{
-    if(input.files.length>0){
-      callback(input.files[0],uploaded);
-    }
-  });
-}
-
-// Display uploaded file with delete button
-function showUploadedFile(file,div,callback){
-  div.innerHTML=`${file.name} <span class="delete-upload" onclick="(${callback.toString()})(null)">Delete</span>`;
-}
-
-// Add File Upload
-setupUpload('uploadArea','fileInput','uploadedFile',(file,div)=>{
-  addFile=file;
-  showUploadedFile(file,div,(f)=>{addFile=null;div.innerHTML='';});
-});
-
-// Edit File Upload
-setupUpload('editUploadArea','editFileInput','editUploadedFile',(file,div)=>{
-  editFile=file;
-  showUploadedFile(file,div,(f)=>{editFile=null;div.innerHTML='';});
-});
-
-// Upload to Firebase Storage
-async function uploadFile(file){
-  const storageRef = ref(storage,'software/'+Date.now()+'_'+file.name);
-  const uploadTask = uploadBytesResumable(storageRef,file);
-  return new Promise((resolve,reject)=>{
-    uploadTask.on('state_changed',null,(err)=>reject(err),()=>{
-      getDownloadURL(uploadTask.snapshot.ref).then(resolve);
-    });
-  });
-}
-
-// Load software for public
-async function loadSoftware(){
-  const listDiv=document.getElementById('softwareList');
-  listDiv.innerHTML='';
-  const snapshot=await getDocs(collection(db,'software'));
-  snapshot.forEach(doc=>{
-    const data=doc.data();
-    const card=document.createElement('div'); card.className='software';
-    const img=document.createElement('img'); img.src=data.imageUrl; img.alt=data.title;
-    const h2=document.createElement('h2'); h2.textContent=data.title;
-    const a=document.createElement('a'); a.href=data.downloadUrl; a.className='download-btn'; a.textContent='Download'; a.target='_blank';
-    const p=document.createElement('p'); p.className='checksum'; p.textContent=data.checksum;
-    card.append(img,h2,a,p);
-    listDiv.appendChild(card);
-  });
-  attachSearch();
-}
-
-// Admin List
-async function loadAdminList(){
-  const listDiv=document.getElementById('adminSoftwareList'); listDiv.innerHTML='';
-  const snapshot=await getDocs(collection(db,'software'));
-  snapshot.forEach(doc=>{
-    const data=doc.data(); const id=doc.id;
-    const div=document.createElement('div'); div.className='software-admin-item';
-    const img=document.createElement('img'); img.src=data.imageUrl; img.width=32; img.height=32;
-    const strong=document.createElement('strong'); strong.textContent=data.title;
-    const btnEdit=document.createElement('button'); btnEdit.className='btn'; btnEdit.textContent='Edit'; btnEdit.onclick=()=>openEditModal(id,data);
-    const btnDel=document.createElement('button'); btnDel.className='btn'; btnDel.textContent='Delete'; btnDel.onclick=()=>deleteSoftware(id,data.downloadUrl);
-    div.append(strong,img,btnEdit,btnDel);
-    listDiv.appendChild(div);
-  });
-}
-
-// Add Software
-window.addSoftware=async(e)=>{
-  e.preventDefault();
-  if(!addFile){ alert('Please upload a file'); return; }
-  try{
-    const downloadUrl=await uploadFile(addFile);
-    const iconUrl=getFileIcon(addFile.name);
-    await addDoc(collection(db,'software'),{
-      title:document.getElementById('title').value,
-      downloadUrl:downloadUrl,
-      checksum:addFile.name,
-      imageUrl:iconUrl
-    });
-    addFile=null; document.getElementById('addForm').reset(); document.getElementById('uploadedFile').innerHTML='';
-    loadSoftware(); loadAdminList();
-  }catch(err){ alert('Error: '+err.message);}
-};
-
-// Update Software
-window.updateSoftware=async(e)=>{
-  e.preventDefault();
-  const id=document.getElementById('editId').value;
-  const data={ title:document.getElementById('editTitle').value };
-  try{
-    if(editFile){
-      // delete old file
-      const docSnap=await getDocs(collection(db,'software'));
-      const oldFileUrl=(await doc(db,'software',id).get()).data()?.downloadUrl;
-      if(oldFileUrl){
-        const oldRef=ref(storage,oldFileUrl.split('?')[0].split('/o/')[1]);
-        await deleteObject(oldRef).catch(()=>{});
+    // Auth State Listener
+    onAuthStateChanged(auth, (user) => {
+      const dashboard = document.getElementById('dashboard');
+      if (user) {
+        dashboard.style.display = 'block';
+        loadSoftware(); // Load and render list
+        loadAdminList(); // Load for dashboard
+      } else {
+        dashboard.style.display = 'none';
       }
-      const downloadUrl=await uploadFile(editFile);
-      data.downloadUrl=downloadUrl;
-      data.checksum=editFile.name;
-      data.imageUrl=getFileIcon(editFile.name);
-      editFile=null; document.getElementById('editUploadedFile').innerHTML='';
-    }
-    await updateDoc(doc(db,'software',id),data);
-    closeEditModal(); loadSoftware(); loadAdminList();
-  }catch(err){ alert('Error: '+err.message);}
-};
-
-// Delete Software
-async function deleteSoftware(id,url){
-  if(confirm('Delete this software?')){
-    try{
-      if(url){ 
-        const storagePath=url.split('?')[0].split('/o/')[1]; 
-        const fileRef=ref(storage,decodeURIComponent(storagePath));
-        await deleteObject(fileRef).catch(()=>{});
-      }
-      await deleteDoc(doc(db,'software',id));
-      loadSoftware(); loadAdminList();
-    }catch(err){ alert('Error: '+err.message);}
-  }
-}
-
-// Search
-function attachSearch(){
-  const box=document.getElementById('searchBox');
-  box.addEventListener('input',()=>{
-    const query=box.value.toLowerCase();
-    document.querySelectorAll('#softwareList .software').forEach(card=>{
-      const title=card.querySelector('h2').textContent.toLowerCase();
-      card.style.display=title.includes(query)?'block':'none';
     });
-  });
-}
 
-</script>
+    // Login Function
+    window.login = async (event) => {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const errorEl = document.getElementById('loginError');
 
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        closeLoginModal();
+        errorEl.style.display = 'none';
+      } catch (error) {
+        errorEl.style.display = 'block';
+      }
+    };
+
+    // Logout
+    window.logout = () => {
+      signOut(auth);
+    };
+
+    // Modal Functions
+    window.openLoginModal = () => {
+      document.getElementById('loginModal').style.display = 'block';
+    };
+
+    window.closeLoginModal = () => {
+      document.getElementById('loginModal').style.display = 'none';
+    };
+
+    window.openEditModal = (id, data) => {
+      document.getElementById('editId').value = id;
+      document.getElementById('editTitle').value = data.title;
+      document.getElementById('editImageUrl').value = data.imageUrl;
+      document.getElementById('editDownloadUrl').value = data.downloadUrl;
+      document.getElementById('editChecksum').value = data.checksum;
+      document.getElementById('editModal').style.display = 'block';
+    };
+
+    window.closeEditModal = () => {
+      document.getElementById('editModal').style.display = 'none';
+    };
+
+    // Load Software from Firestore and Render
+    async function loadSoftware() {
+      const querySnapshot = await getDocs(collection(db, 'software'));
+      const softwareList = document.getElementById('softwareList');
+      softwareList.innerHTML = '';
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const card = `
+          <div class="software">
+            <img src="${data.imageUrl}" alt="${data.title}">
+            <h2>${data.title}</h2>
+            <a class="download-btn" href="${data.downloadUrl}">Download</a>
+            <p class="checksum">${data.checksum}</p>
+          </div>
+        `;
+        softwareList.innerHTML += card;
+      });
+      // Re-attach search after render
+      attachSearch();
+    }
+
+    // Load for Admin Dashboard
+    async function loadAdminList() {
+      const querySnapshot = await getDocs(collection(db, 'software'));
+      const adminList = document.getElementById('adminSoftwareList');
+      adminList.innerHTML = '';
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const id = doc.id;
+        const item = `
+          <div class="software-admin-item">
+            <strong>${data.title}</strong><br>
+            <img src="${data.imageUrl}" width="32" height="32" style="object-fit: contain;"><br>
+            <button class="btn btn-primary" onclick="openEditModal('${id}', ${JSON.stringify(data).replace(/"/g, '&quot;')})">Edit</button>
+            <button class="btn btn-danger" onclick="deleteSoftware('${id}')">Delete</button>
+          </div>
+        `;
+        adminList.innerHTML += item;
+      });
+    }
+
+    // Add Software
+    window.addSoftware = async (event) => {
+      event.preventDefault();
+      const data = {
+        title: document.getElementById('title').value,
+        imageUrl: document.getElementById('imageUrl').value,
+        downloadUrl: document.getElementById('downloadUrl').value,
+        checksum: document.getElementById('checksum').value
+      };
+      try {
+        await addDoc(collection(db, 'software'), data);
+        loadSoftware();
+        loadAdminList();
+        document.getElementById('addForm').reset();
+      } catch (error) {
+        alert('Error adding software: ' + error.message);
+      }
+    };
+
+    // Update Software
+    window.updateSoftware = async (event) => {
+      event.preventDefault();
+      const id = document.getElementById('editId').value;
+      const data = {
+        title: document.getElementById('editTitle').value,
+        imageUrl: document.getElementById('editImageUrl').value,
+        downloadUrl: document.getElementById('editDownloadUrl').value,
+        checksum: document.getElementById('editChecksum').value
+      };
+      try {
+        await updateDoc(doc(db, 'software', id), data);
+        closeEditModal();
+        loadSoftware();
+        loadAdminList();
+      } catch (error) {
+        alert('Error updating software: ' + error.message);
+      }
+    };
+
+    // Delete Software
+    window.deleteSoftware = async (id) => {
+      if (confirm('Delete this software?')) {
+        try {
+          await deleteDoc(doc(db, 'software', id));
+          loadSoftware();
+          loadAdminList();
+        } catch (error) {
+          alert('Error deleting software: ' + error.message);
+        }
+      }
+    };
+
+    // Original Search (re-attach after load)
+    function attachSearch() {
+      const searchBox = document.getElementById('searchBox');
+      searchBox.value = ''; // Clear search on reload
+      const softwareList = document.getElementById('softwareList');
+      const softwares = softwareList.getElementsByClassName('software');
+      const handler = () => {
+        const searchTerm = searchBox.value.toLowerCase();
+        for (let item of softwares) {
+          const title = item.querySelector('h2').textContent.toLowerCase();
+          item.classList.toggle('hidden', !title.includes(searchTerm));
+        }
+      };
+      searchBox.removeEventListener('input', handler); // Prevent duplicates
+      searchBox.addEventListener('input', handler);
+    }
+
+    // Initial Load (Public View)
+    loadSoftware();
+    attachSearch();
+  </script>
 </body>
-</html>
+</html> 
