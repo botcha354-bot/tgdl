@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Software Downloads</title>
   <style>
-    /* Your original styles here (unchanged) */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -25,7 +24,7 @@
       margin-bottom: 20px;
     }
 
-    /* Search bar */
+
     .search-container {
       text-align: center;
       margin-bottom: 30px;
@@ -46,7 +45,7 @@
       border-color: #0070f3;
     }
 
-    /* Responsive grid layout */
+
     .wrap {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -54,7 +53,7 @@
       padding: 10px;
     }
 
-    /* Software card */
+
     .software {
       background: #fff;
       padding: 20px;
@@ -83,7 +82,7 @@
       color: #0070f3;
     }
 
-    /* Download button */
+  
     .download-btn {
       display: inline-block;
       margin-top: 10px;
@@ -99,7 +98,7 @@
       background: #0056c7;
     }
 
-    /* Checksum text */
+   
     .checksum {
       font-size: 0.9em;
       color: #555;
@@ -107,7 +106,7 @@
       word-break: break-all;
     }
 
-    /* Footer */
+  
     footer {
       text-align: center;
       color: #777;
@@ -115,12 +114,11 @@
       font-size: 0.9em;
     }
 
-    /* Hide when filtered out */
     .hidden {
       display: none;
     }
 
-    /* New: Admin Button and Modal */
+  
     .admin-section {
       text-align: center;
       margin-bottom: 20px;
@@ -190,7 +188,7 @@
       cursor: pointer;
     }
 
-    /* Dashboard Styles */
+
     #dashboard {
       display: none;
       margin-top: 30px;
@@ -243,7 +241,7 @@
       border-radius: 5px;
     }
 
-    /* Edit Modal */
+
     #editModal {
       display: none;
       position: fixed;
@@ -270,7 +268,7 @@
 <body>
   <h1>Download Center</h1>
 
-  <!-- Admin Login Button -->
+
   <div class="admin-section">
     <button class="admin-btn" onclick="openLoginModal()">Admin Login</button>
   </div>
@@ -293,7 +291,7 @@
     </div>
   </div>
 
-  <!-- Edit Modal -->
+
   <div id="editModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeEditModal()">&times;</span>
@@ -321,7 +319,7 @@
     </div>
   </div>
 
-  <!-- Dashboard (Hidden until login) -->
+
   <div id="dashboard">
     <h2>Admin Dashboard</h2>
     <button class="btn btn-danger" onclick="logout()">Logout</button>
@@ -348,36 +346,34 @@
       <button type="submit" class="btn btn-success">Add</button>
     </form>
 
-    <!-- Admin Software List (for Edit/Delete) -->
+
     <div class="software-list-admin">
       <h3>Manage Software</h3>
       <div id="adminSoftwareList"></div>
     </div>
   </div>
 
-  <!-- Your Original Search and List -->
+
   <div class="search-container">
     <input type="text" id="searchBox" placeholder="Search software...">
   </div>
 
   <div class="wrap" id="softwareList">
-    <!-- Software cards will be populated by JS from Firestore -->
   </div>
 
   <footer>
     © 2025 My Software Downloads
   </footer>
 
-  <!-- Firebase SDK -->
+
   <script type="module">
-    // Import the functions you need from the SDKs you need
+
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
     import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
 
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
     const firebaseConfig = {
     apiKey: "AIzaSyD3Rd_IT34AN7LQKKrkuyonE3nEmXGGt5E",
     authDomain: "download-center-4f997.firebaseapp.com",
@@ -389,13 +385,13 @@
     };
 
 
-    // Initialize Firebase
+
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Auth State Listener
+
     onAuthStateChanged(auth, (user) => {
       const dashboard = document.getElementById('dashboard');
       if (user) {
@@ -407,7 +403,7 @@
       }
     });
 
-    // Login Function
+
     window.login = async (event) => {
       event.preventDefault();
       const email = document.getElementById('email').value;
@@ -423,12 +419,11 @@
       }
     };
 
-    // Logout
+
     window.logout = () => {
       signOut(auth);
     };
 
-    // Modal Functions
     window.openLoginModal = () => {
       document.getElementById('loginModal').style.display = 'block';
     };
@@ -450,7 +445,7 @@
       document.getElementById('editModal').style.display = 'none';
     };
 
-    // Load Software from Firestore and Render
+
     async function loadSoftware() {
       const querySnapshot = await getDocs(collection(db, 'software'));
       const softwareList = document.getElementById('softwareList');
@@ -471,7 +466,6 @@
       attachSearch();
     }
 
-    // Load for Admin Dashboard
     async function loadAdminList() {
       const querySnapshot = await getDocs(collection(db, 'software'));
       const adminList = document.getElementById('adminSoftwareList');
@@ -491,7 +485,6 @@
       });
     }
 
-    // Add Software
     window.addSoftware = async (event) => {
       event.preventDefault();
       const data = {
@@ -543,7 +536,7 @@
       }
     };
 
-    // Original Search (re-attach after load)
+
     function attachSearch() {
       const searchBox = document.getElementById('searchBox');
       searchBox.value = ''; // Clear search on reload
@@ -560,7 +553,6 @@
       searchBox.addEventListener('input', handler);
     }
 
-    // Initial Load (Public View)
     loadSoftware();
     attachSearch();
   </script>
